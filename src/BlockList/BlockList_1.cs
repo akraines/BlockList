@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
+using System.Linq;
 using Clever.Collections.Internal;
 using Clever.Collections.Internal.Diagnostics;
 using static Clever.Collections.BlockList;
@@ -20,7 +21,7 @@ namespace Clever.Collections
         private int _headCount;
         private int _count;
         private int _capacity;
-        
+
         public BlockList()
             : this(DefaultOptions)
         {
@@ -106,8 +107,8 @@ namespace Clever.Collections
 
         public void AddRange(IEnumerable<T> items)
         {
-            Verify.NotNull(items, nameof(items));
-
+            items = items ?? Enumerable.Empty<T>();
+            //Verify.NotNull(items, nameof(items));
             foreach (T item in items)
             {
                 Add(item);
